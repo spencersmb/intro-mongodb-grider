@@ -1,0 +1,30 @@
+{
+  "name": "users",
+  "version": "1.0.0",
+  "description": "mongo/mongoose basics",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon --exec 'mocha -R min'",
+    "mocha": "mocha"
+  },
+  "standard": {
+    "globals": [
+      "describe",
+      "context",
+      "before",
+      "beforeEach",
+      "after",
+      "afterEach",
+      "it",
+      "done",
+      "expect"
+    ]
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mocha": "^3.4.2",
+    "mongoose": "^4.10.7",
+    "nodemon": "^1.11.0"
+  }
+}
