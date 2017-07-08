@@ -1,7 +1,10 @@
 const mongoose = require('mongoose')
 mongoose.Promise = global.Promise // Tell Mongoose to use ES6 promises
 before((done) => {
-  mongoose.connect('mongodb://localhost/users_test')
+  mongoose.connect('mongodb://localhost/users_test', {
+    useMongoClient: true
+    /* other options */
+  })
   mongoose.connection
     .once('open', () => {
       console.log('Good to go!')
@@ -29,6 +32,8 @@ const asyncWrapper = async (fn, type) => {
 
 const collectionsReset = async () => {
   await asyncWrapper(dropCollection, 'users')
+  await asyncWrapper(dropCollection, 'comments')
+  await asyncWrapper(dropCollection, 'blogposts') // MongoDB lowercases camcelcase IDS
 }
 
 // Before Each Describe block (test) erase DB users
