@@ -7,7 +7,7 @@ const AlbumSchema = new Schema({
   date: Date,
   image: String,
   numberTracks: Number,
-  revenue: SchemaTypes.Double,
+  revenue: Number,
   title: String
 })
 
