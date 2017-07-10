@@ -1,5 +1,6 @@
 /users/node_modules
-.idea
-upStar_Music/src/env.js
-upStar_Music/src/config.json
-upStar_Music/node_modules
+/upstarmusic/node_modules
+/upstarmusic/src/env.js
+/upstarmusic/src/config.json
+/users/.idea
+/upstarmusic/.idea
