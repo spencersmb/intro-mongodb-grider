@@ -1,5 +1,8 @@
 {
-  "extends": "rallycoding",
+  "extends": [
+    "rallycoding",
+    "airbnb"
+  ],
   "rules": {
     "arrow-body-style": 0,
     "no-underscore-dangle": 0,

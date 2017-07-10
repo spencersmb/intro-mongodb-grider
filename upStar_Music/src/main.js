@@ -28,7 +28,7 @@ const db = new Db('upstarmusicapp', new Server(variables.URI, variables.PORT
 ))
 
 db.open((err, dba) => {
-  dba.authenticate(variables.USER, variables.pw, (err, success) => {
+  dba.authenticate(variables.USER, variables.PW, (err, success) => {
     if (success) {
       // callback(null, db);
       window.db = db
