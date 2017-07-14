@@ -8,12 +8,17 @@ const ArtistSchema = new Schema({
   genre: String,
   image: String,
   labelName: String,
-  name: String,
+  name: {
+    type: String,
+    trim: true
+  },
   netWorth: Number,
   retired: Boolean,
   website: String,
   yearsActive: Number
 })
+
+ArtistSchema.index({name: 'text'})
 
 const Artist = mongoose.model('artist', ArtistSchema)
 
