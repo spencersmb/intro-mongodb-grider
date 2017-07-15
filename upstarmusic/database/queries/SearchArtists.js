@@ -18,35 +18,38 @@ module.exports = (criteria, sortProperty, offset = 0, limit = 20) => {
   const countPromise = Artist.find(buildQuery(criteria)).count()
   // console.log('queryCount', queryCount)
 
-  const request = Artist.aggregate([
-    {$match: buildQuery(criteria)},
-    {$sort: {[sortProperty]: 1}},
-    {
-      $group: {
-        _id: 'null',
-        count:
-          {$sum: 1},
-        results: {$push: '$$ROOT'}
+  const request = Artist.aggregate(
+    [
+      {$match: buildQuery(criteria)},
+      {$sort: {[sortProperty]: 1}},
+      {
+        $group: {
+          _id: 'null',
+          count:
+            {$sum: 1},
+          results: {$push: '$$ROOT'}
+        }
+      },
+      {
+        '$unwind': '$results'
+      },
+      {$skip: offset},
+      {$limit: limit},
+      {
+        $project: {
+          _id: 1,
+          name: 1,
+          count: 1,
+          results: 1
+        }
       }
-    },
-    {
-      '$unwind': '$results'
-    },
-    {$skip: offset},
-    {$limit: limit},
-    {
-      $project: {
-        _id: 1,
-        name: 1,
-        count: 1,
-        results: 1
-      }
-    }
-
-  ])
+    ]
+  )
 
   return request.then(re => {
     // Need to map over results and pull them out into their own array
+    console.log('re', re)
+
     const all = re.map(item => item.results)
     // console.log('re', all)
 
@@ -58,12 +61,12 @@ module.exports = (criteria, sortProperty, offset = 0, limit = 20) => {
     }
   })
 
-  // return Promise.all([rq, countPromise]).then(r => {
+  // return Promise.all([query, countPromise]).then(r => {
   //   console.log('r', r)
   //
   //   return {
-  //     all: r[0][0].results,
-  //     count: r[0].count,
+  //     all: r[0],
+  //     count: r[1],
   //     offset: offset,
   //     limit: limit
   //   }

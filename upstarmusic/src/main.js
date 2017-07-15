@@ -7,7 +7,7 @@ import { Db, Server } from 'mongodb'
 import reducers from './reducers'
 import Routes from './router'
 import mongoose from 'mongoose'
-import './seeds'
+// import './seeds'
 // require('./config.json')
 import { variables } from './env'
 
@@ -24,30 +24,44 @@ const App = () => {
 }
 
 // const db = new Db('upstar_music', new Server('localhost', 27017))
-const db = new Db('upstarmusicapp', new Server(variables.URI, variables.PORT
-))
+// const db = new Db('upstarmusicapp', new Server(variables.URI, variables.PORT
+// ))
+//
+// db.open((err, dba) => {
+//   dba.authenticate(variables.USER, variables.PW, (err, success) => {
+//     if (success) {
+//       // callback(null, db);
+//       window.db = db
+//       mongoose.connect(variables.MONGODB_URI, {
+//         useMongoClient: true
+//         /* other options */
+//       })
+//       mongoose.connection
+//         .once('open', () => {
+//           ReactDOM.render(<App />, document.getElementById('root'))
+//         })
+//         .on('error', (error) => {
+//           console.warn('Warning', error)
+//         })
+//     } else {
+//       // callback(err ? err : new Error('Could not authenticate user ' + user), null);
+//     }
+//   })
+// })
 
-db.open((err, dba) => {
-  dba.authenticate(variables.USER, variables.PW, (err, success) => {
-    if (success) {
-      // callback(null, db);
-      window.db = db
-      mongoose.connect(variables.MONGODB_URI, {
-        useMongoClient: true
-        /* other options */
-      })
-      mongoose.connection
-        .once('open', () => {
-          ReactDOM.render(<App />, document.getElementById('root'))
-        })
-        .on('error', (error) => {
-          console.warn('Warning', error)
-        })
-    } else {
-      // callback(err ? err : new Error('Could not authenticate user ' + user), null);
-    }
-  })
+mongoose.connect(variables.MONGODB_URI, {
+  useMongoClient: true
+  /* other options */
 })
+const db = mongoose.connection
+window.db = db
+db.once('open', () => {
+  ReactDOM.render(<App />, document.getElementById('root'))
+})
+db.on('error', (error) => {
+  console.warn('Warning', error)
+})
+
 // .then(() => {
 //   window.db = db
 //   // mongoose.connect('mongodb://localhost/upstar_music')

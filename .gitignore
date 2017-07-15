@@ -1,6 +1,8 @@
 /users/node_modules
 /upstarmusic/node_modules
+/muber/node_modules
 /upstarmusic/src/env.js
 /upstarmusic/src/config.json
 /users/.idea
 /upstarmusic/.idea
+/muber/.idea
