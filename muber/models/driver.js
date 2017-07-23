@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
+const mongodbErrorHandler = require('mongoose-mongodb-errors')
 
-const DriverSchema = new Schema({
+const driverSchema = new Schema({
   driving: {
     type: Boolean,
     default: false
@@ -12,7 +13,7 @@ const DriverSchema = new Schema({
   },
   location: String
 })
+// driverSchema.plugin(mongodbErrorHandler) //change ugly errors to nice looking errors we can display on front end
 
-const Driver = mongoose.model('driver', DriverSchema)
-
-exports.model = Driver
+// module.exports = mongoose.model('Driver', driverSchema)
+module.exports = mongoose.model('Driver', driverSchema)
